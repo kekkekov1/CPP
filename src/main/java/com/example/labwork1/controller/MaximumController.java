@@ -41,7 +41,6 @@ public class MaximumController {
     public ResponseEntity<Object> maxIdentification(@RequestParam(value = "firstNumber", defaultValue = "0") String firstNumber,
                                                     @RequestParam(value = "secondNumber", defaultValue = "0") String secondNumber,
                                                     @RequestParam(value = "thirdNumber", defaultValue = "0") String thirdNumber) throws CustomException {
-
         Integer firstNumberInt = 0, secondNumberInt = 0, thirdNumberInt = 0;
         if (Validation.parsing(firstNumber, secondNumber, thirdNumber) == 3) {
             firstNumberInt = Integer.parseInt(firstNumber);
@@ -49,7 +48,6 @@ public class MaximumController {
             thirdNumberInt = Integer.parseInt(thirdNumber);
         }
         Parametres param = new Parametres(firstNumberInt, secondNumberInt, thirdNumberInt);
-        //systemCalls.increasingCalls();
         requestCounter.increment();
         solution.calculateRoot(param);
 
@@ -60,30 +58,15 @@ public class MaximumController {
     @PostMapping(value = "/input",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<Object> calculateBulkParams(@RequestBody String[] str) {
-
-
         logger.info("Successfully postMapping");
-        Operationable operation;
-        operation = (x,y,z) -> x+y+z;
-        int sum = operation.calculate(Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt(str[2]));
+        int sum = 0;
+        for(int i=0;i<str.length;i++)
+            sum += Integer.parseInt(str[i]);
         int maxResult = solution.findMaxOfResult(str);
         int minResult = solution.findMinOfResult(str);
 
         return new ResponseEntity<>("\nSum: " + sum + "\nMax result: " +
                maxResult + "\nMin result: " + minResult, HttpStatus.OK);
-
-
-
     }
-
-    interface Operationable{
-        int calculate(int x, int y, int z);
-    }
-
-
 }
-
-
-
