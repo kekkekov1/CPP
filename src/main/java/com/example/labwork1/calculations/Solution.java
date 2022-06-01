@@ -21,17 +21,12 @@ import java.util.List;
 @Service
 
 public class Solution {
-
     private Cache cache;
     private Integer root;
-
-
-    Solution(){
+    public Solution(){
         var context = new AnnotationConfigApplicationContext(SpringConfig.class);
         cache = context.getBean("cache", Cache.class);
     };
-
-
     public int calculateRoot(Parametres parameters) {
 
         var temp = cache.find(parameters);
@@ -52,43 +47,20 @@ public class Solution {
         cache.add(parameters, root);
         return temp;
     }
-
     public Integer getRoot() {
         return root;
     }
-
     public void setRoot(Integer root) {
         this.root = root;
     }
-
-    public int calculateSumOfResult(Integer myOwnNumber) {
-        int sum = 0;
-        sum = myOwnNumber;
-        return sum;
-
-    }
-    public static int findSum (String[] arr){
-        int sum = Stream.of(arr).mapToInt(Integer::parseInt).sum();
-
-
-        return sum;
-        //
-    }
-
     public int findMinOfResult(String[] arr) {
         int min = 0;
-
-            min = Stream.of(arr).mapToInt(Integer::parseInt).min().getAsInt();
-
+        min = Stream.of(arr).mapToInt(Integer::parseInt).min().getAsInt();
         return min;
     }
-
     public int findMaxOfResult(String[] arr) {
         int max = 0;
-
-            max = Stream.of(arr).mapToInt(Integer::parseInt).max().getAsInt();
-
+        max = Stream.of(arr).mapToInt(Integer::parseInt).max().getAsInt();
         return max;
     }
-
 }
